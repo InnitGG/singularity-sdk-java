@@ -41,6 +41,7 @@ public interface GameServer {
         CREATING("Creating"),
         STARTING("Starting"),
         SCHEDULED("Scheduled"),
+        REQUEST_READY("RequestReady"),
         READY("Ready"),
         ALLOCATED("Allocated"),
         DRAIN("Drain"),
