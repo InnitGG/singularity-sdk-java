@@ -1,6 +1,7 @@
 package gg.innit.singularity.resource;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;
 import java.util.Map;
@@ -15,7 +16,7 @@ public interface GameServer {
     /**
      * @return the labels associated with this {@link GameServer}.
      */
-    @NotNull Map<String, String> getLabels();
+    @Nullable Map<String, String> getLabels();
 
     /**
      * @return a collection of {@link GameServerInstance} associated with this {@link GameServer}.
@@ -35,9 +36,17 @@ public interface GameServer {
      * @param key   the key of the label
      * @param value the value of the label
      */
-    void setLabel(String key, String value);
+    @NotNull CompletableFuture<Void> setLabel(String key, String value);
+
+    /**
+     * Requests the {@link State#READY} state for this {@link GameServer}.
+     */
+    default @NotNull CompletableFuture<Void> requestReady() {
+        return setState(State.REQUEST_READY);
+    }
 
     enum State {
+        UNKNOWN(""),
         CREATING("Creating"),
         STARTING("Starting"),
         SCHEDULED("Scheduled"),

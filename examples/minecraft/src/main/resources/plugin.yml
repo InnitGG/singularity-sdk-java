@@ -1,0 +1,6 @@
+name: Singularity
+description: Example Paper plugin for Singularity
+version: 0.1.0
+main: gg.innit.singularity.example.SingularityExamplePlugin
+authors: [Cubxity]
+api-version: 1.19
