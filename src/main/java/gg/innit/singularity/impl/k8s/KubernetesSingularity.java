@@ -6,10 +6,8 @@ import gg.innit.singularity.impl.k8s.models.V1GameServer;
 import gg.innit.singularity.impl.k8s.models.V1GameServerList;
 import gg.innit.singularity.resource.GameServer;
 import io.kubernetes.client.openapi.ApiClient;
-import io.kubernetes.client.openapi.ApiException;
 import io.kubernetes.client.util.Config;
 import io.kubernetes.client.util.generic.GenericKubernetesApi;
-import io.kubernetes.client.util.generic.KubernetesApiResponse;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
@@ -50,11 +48,5 @@ public final class KubernetesSingularity implements Singularity {
                 throw new CompletionException(e);
             }
         });
-    }
-
-    public static void main(String[] args) throws IOException, ApiException {
-        KubernetesSingularity singularity = new KubernetesSingularity();
-        KubernetesApiResponse<V1GameServer> res = singularity.getGameServerClient().get("default", "test-gr6cn-vtrgb");
-        System.out.println(res.getObject());
     }
 }
