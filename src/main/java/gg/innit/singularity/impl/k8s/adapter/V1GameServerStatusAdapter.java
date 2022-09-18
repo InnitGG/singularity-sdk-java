@@ -1,15 +1,13 @@
 package gg.innit.singularity.impl.k8s.adapter;
 
-import gg.innit.singularity.impl.k8s.models.V1GameServerState;
-import gg.innit.singularity.impl.k8s.models.V1GameServerStatus;
 import gg.innit.singularity.resource.GameServerStatus;
 import org.jetbrains.annotations.NotNull;
 
 public final class V1GameServerStatusAdapter implements GameServerStatus {
-    private final V1GameServerStatus status;
+    private final gg.innit.singularity.impl.k8s.v1.GameServerStatus status;
     private final State state;
 
-    public V1GameServerStatusAdapter(V1GameServerStatus status) {
+    public V1GameServerStatusAdapter(gg.innit.singularity.impl.k8s.v1.GameServerStatus status) {
         this.status = status;
         this.state = fromModelState(status.getState());
     }
@@ -19,53 +17,53 @@ public final class V1GameServerStatusAdapter implements GameServerStatus {
         return this.state;
     }
 
-    private static State fromModelState(V1GameServerState state) {
+    private static State fromModelState(String state) {
         switch (state) {
-            case CREATING:
+            case "Creating":
                 return State.CREATING;
-            case STARTING:
+            case "Starting":
                 return State.STARTING;
-            case SCHEDULED:
+            case "Scheduled":
                 return State.SCHEDULED;
-            case REQUEST_READY:
+            case "RequestReady":
                 return State.REQUEST_READY;
-            case READY:
+            case "Ready":
                 return State.READY;
-            case ALLOCATED:
+            case "Allocated":
                 return State.ALLOCATED;
-            case DRAIN:
+            case "Drain":
                 return State.DRAIN;
-            case SHUTDOWN:
+            case "Shutdown":
                 return State.SHUTDOWN;
-            case ERROR:
+            case "Error":
                 return State.ERROR;
             default:
                 return State.UNKNOWN;
         }
     }
 
-    private static V1GameServerState toModelState(State state) {
+    private static String toModelState(State state) {
         switch (state) {
             case CREATING:
-                return V1GameServerState.CREATING;
+                return "Creating";
             case STARTING:
-                return V1GameServerState.STARTING;
+                return "Starting";
             case SCHEDULED:
-                return V1GameServerState.SCHEDULED;
+                return "Scheduled";
             case REQUEST_READY:
-                return V1GameServerState.REQUEST_READY;
+                return "RequestReady";
             case READY:
-                return V1GameServerState.READY;
+                return "Ready";
             case ALLOCATED:
-                return V1GameServerState.ALLOCATED;
+                return "Allocated";
             case DRAIN:
-                return V1GameServerState.DRAIN;
+                return "Drain";
             case SHUTDOWN:
-                return V1GameServerState.SHUTDOWN;
+                return "Shutdown";
             case ERROR:
-                return V1GameServerState.ERROR;
+                return "Error";
             default:
-                return V1GameServerState.UNKNOWN;
+                return "Unknown";
         }
     }
 }

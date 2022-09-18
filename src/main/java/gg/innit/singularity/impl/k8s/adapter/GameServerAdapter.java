@@ -1,9 +1,16 @@
 package gg.innit.singularity.impl.k8s.adapter;
 
 import gg.innit.singularity.impl.k8s.v1.GameServer;
+import gg.innit.singularity.resource.GameServerInstance;
+import gg.innit.singularity.resource.GameServerSpec;
+import gg.innit.singularity.resource.GameServerStatus;
+import gg.innit.singularity.resource.Metadata;
 import io.fabric8.kubernetes.api.model.KubernetesResourceList;
+import io.fabric8.kubernetes.api.model.ObjectMeta;
 import io.fabric8.kubernetes.client.dsl.MixedOperation;
 import io.fabric8.kubernetes.client.dsl.Resource;
+import io.fabric8.kubernetes.client.dsl.base.PatchContext;
+import io.fabric8.kubernetes.client.dsl.base.PatchType;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collection;
@@ -13,14 +20,14 @@ import java.util.concurrent.CompletionException;
 
 public final class GameServerAdapter implements gg.innit.singularity.resource.GameServer {
     private final GameServer model;
-    private final V1ObjectMetaAdapter meta;
+    private final ObjectMetaAdapter meta;
     private final V1GameServerSpecAdapter spec;
     private final V1GameServerStatusAdapter status;
     private final MixedOperation<GameServer, KubernetesResourceList<GameServer>, Resource<GameServer>> client;
 
     public GameServerAdapter(GameServer model, MixedOperation<GameServer, KubernetesResourceList<GameServer>, Resource<GameServer>> client) {
         this.model = model;
-        this.meta = new V1ObjectMetaAdapter(model.getMetadata());
+        this.meta = new ObjectMetaAdapter(model.getMetadata());
         this.spec = new V1GameServerSpecAdapter(model.getSpec());
         this.status = new V1GameServerStatusAdapter(model.getStatus());
         this.client = client;
@@ -49,12 +56,12 @@ public final class GameServerAdapter implements gg.innit.singularity.resource.Ga
 
     @Override
     public @NotNull CompletableFuture<Void> setLabel(@NotNull String key, @NotNull String value) {
-        this.client.resource(this.model)
-            .editStatus()
-            .updateStatus()
-       this.client
-           .resource(this.model)
-           .patch()
+        return CompletableFuture.runAsync(() -> {
+            this.model.getMetadata().getLabels().put(key, value);
+            this.client.inNamespace(this.meta.namespace()).withName(this.meta.name()).patch(PatchContext.of(PatchType.JSON), this.model);
+        }).exceptionally(throwable -> {
+            throw new CompletionException(throwable);
+        });
     }
 
     @Override
@@ -68,7 +75,7 @@ public final class GameServerAdapter implements gg.innit.singularity.resource.Ga
         JsonObject patch = new JsonObject();
         patch.add("metadata", metadataPatch);
 
-        V1ObjectMeta meta = this.model.getMetadata();
+        ObjectMeta meta = this.model.getMetadata();
 
         // TODO: Is there a way to make this truly async?
         return CompletableFuture.runAsync(() -> {
