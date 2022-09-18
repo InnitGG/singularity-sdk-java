@@ -11,7 +11,8 @@ repositories {
 
 dependencies {
     compileOnly("org.jetbrains:annotations:23.0.0")
-    implementation("io.kubernetes:client-java:16.0.0")
+    compileOnly("javax.validation:validation-api:2.0.1.Final")
+    implementation("io.fabric8:kubernetes-client:6.1.1")
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.0")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.9.0")
