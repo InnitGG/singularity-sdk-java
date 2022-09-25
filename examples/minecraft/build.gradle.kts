@@ -10,8 +10,8 @@ repositories {
 }
 
 dependencies {
-    implementation(project(":singularity-sdk-core"))
     implementation(project(":singularity-sdk-k8s"))
+    implementation("io.fabric8:kubernetes-httpclient-okhttp:6.1.1")
     compileOnly("io.papermc.paper:paper-api:1.19.2-R0.1-SNAPSHOT")
 }
 

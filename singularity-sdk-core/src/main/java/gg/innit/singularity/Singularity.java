@@ -1,14 +1,13 @@
 package gg.innit.singularity;
 
+import gg.innit.singularity.resource.GameServer;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.concurrent.CompletableFuture;
-
-import gg.innit.singularity.resource.GameServer;
-
-public interface Singularity {
+public interface Singularity extends AutoCloseable {
     /**
-     * @return the current {@link GameServer}.
+     * Returns {@literal null} if there is no {@link GameServer} associated with the process.
+     *
+     * @return the APIs representing the current {@link GameServer}.
      */
-    CompletableFuture<@Nullable GameServer> getCurrentGameServer();
+    @Nullable CurrentGameServer current();
 }

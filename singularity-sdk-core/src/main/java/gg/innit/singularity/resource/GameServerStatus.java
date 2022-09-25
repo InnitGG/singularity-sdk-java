@@ -9,7 +9,6 @@ public interface GameServerStatus {
     @NotNull State state();
 
     enum State {
-
         UNKNOWN(""),
         CREATING("Creating"),
         STARTING("Starting"),
