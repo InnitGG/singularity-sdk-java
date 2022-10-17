@@ -4,8 +4,10 @@ package gg.innit.singularity.k8s.impl.v1;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import gg.innit.singularity.resource.GameServerStatus;
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 
+@ApiStatus.Internal
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class V1GameServerStatus implements GameServerStatus {
     private State state;

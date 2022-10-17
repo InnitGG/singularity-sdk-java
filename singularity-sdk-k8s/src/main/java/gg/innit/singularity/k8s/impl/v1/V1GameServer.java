@@ -10,8 +10,10 @@ import io.fabric8.kubernetes.client.CustomResource;
 import io.fabric8.kubernetes.model.annotation.Group;
 import io.fabric8.kubernetes.model.annotation.Kind;
 import io.fabric8.kubernetes.model.annotation.Version;
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 
+@ApiStatus.Internal
 @Group(V1SingularityKubernetesImpl.API_GROUP)
 @Version(V1SingularityKubernetesImpl.API_VERSION)
 @Kind("GameServer")

@@ -6,11 +6,13 @@ import gg.innit.singularity.resource.GameServerStatus;
 import io.fabric8.kubernetes.api.model.ObjectMeta;
 import io.fabric8.kubernetes.api.model.ObjectMetaBuilder;
 import io.fabric8.kubernetes.client.dsl.Resource;
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.concurrent.CompletableFuture;
 
+@ApiStatus.Internal
 public final class V1CurrentGameServer implements CurrentGameServer {
     private final V1SingularityKubernetesImpl impl;
     private final String namespace;

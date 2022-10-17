@@ -7,8 +7,10 @@ import io.fabric8.kubernetes.client.KubernetesClient;
 import io.fabric8.kubernetes.client.KubernetesClientBuilder;
 import io.fabric8.kubernetes.client.dsl.MixedOperation;
 import io.fabric8.kubernetes.client.dsl.Resource;
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.Nullable;
 
+@ApiStatus.Internal
 public final class V1SingularityKubernetesImpl implements SingularityKubernetes {
     public static final String API_GROUP = "singularity.innit.gg";
     public static final String API_VERSION = "v1";
