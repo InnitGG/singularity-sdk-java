@@ -1,7 +1,7 @@
 # singularity-sdk-java
 
 **singularity-sdk-java** is an SDK for [Singularity](https://github.com/innitgg/singularity) GameServers running in
-Java.
+Java. This SDK is licensed under [GNU LGPLv3](COPYING.LESSER).
 
 ## Quick Start
 

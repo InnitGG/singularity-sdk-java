@@ -3,7 +3,8 @@ build/
 run/
 
 ### IntelliJ IDEA ###
-.idea
+.idea/*
+!.idea/copyright
 *.iws
 *.iml
 *.ipr
